@@ -55,6 +55,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { addUser } from '@/api/user'
 export default {
   name: 'Login',
   computed: {
@@ -115,12 +116,17 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          console.log('111')
-          this.$store.dispatch('handleLogin', this.loginForm).then(() => {
-            // this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
+          // console.log('111')
+          // this.$store.dispatch('handleLogin', this.loginForm).then(() => {
+          //   // this.$router.push({ path: this.redirect || '/' })
+          //   this.loading = false
+          // }).catch(() => {
+          //   this.loading = false
+          // })
+          addUser(this.loginForm).then(res => {
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
           })
         } else {
           console.log('error submit!!')
