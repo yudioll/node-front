@@ -13,13 +13,13 @@ const routes = [
     },
     {
         path: 'home',
-        component: () => import('@/view/home')
+        component: () => import('@/views/home.vue')
     }
 ]
 
 const router = new VueRouter({
     mode: 'history',
-    base:'/',
+    base:'desktop',
     routes
 })
 

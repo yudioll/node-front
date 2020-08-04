@@ -1,19 +1,24 @@
-import { Login } from '@/api/login/login'
+import { Login } from '@/api/login'
 const login = {
     state: {
         token: '',
         username: '',
         avator: ''
     },
-    mutation: {
+    mutations: {
         GETUSER: (state) => {
             state.username = 'aaa'
+        },
+        SET_TOKEN: (state, data) => {
+            state.token = data.token
         }
     },
     actions: {
-        handleLogin(data) {
-            Login(data).then( res=> {
-                console.log(res)
+        handleLogin({commit}, data) {
+            console.log(data)
+            Login(data).then(res => {
+                commit('SET_TOKEN',res)
+                localStorage.setItem('token', res.token)
             }).catch(err => {
                 console.error(err)
             })
