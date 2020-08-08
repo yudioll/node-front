@@ -16,8 +16,8 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
-  <script type="text/javascript" src="<%= BASE_URL %>/static/js/Detector.js"></script>
-  <script type="text/javascript" src="<%= BASE_URL %>/static/js/three.min.js"></script>
+  <script type="text/javascript" src="<%= BASE_URL %>static/js/Detector.js"></script>
+  <script type="text/javascript" src="<%= BASE_URL %>static/js/three.min.js"></script>
   <script id="vs" type="x-shader/x-vertex">
 
         varying vec2 vUv;
@@ -107,7 +107,7 @@
 
       geometry = new THREE.Geometry();
 
-      var texture = THREE.ImageUtils.loadTexture('./static/img/cloud10.png', null, animate);
+      var texture = THREE.ImageUtils.loadTexture('<%= BASE_URL %>static/img/cloud10.png', null, animate);
       texture.magFilter = THREE.LinearMipMapLinearFilter;
       texture.minFilter = THREE.LinearMipMapLinearFilter;
 
