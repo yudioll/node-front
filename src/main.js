@@ -6,7 +6,9 @@ import router from './router'
 import store from './store'
 import '@/style/reset.css'
 import './icons' // icon
+import animated from 'animate.css' // npm install animate.css --save安装，在引入
 
+Vue.use(animated)
 
 Vue.config.productionTip = false
 Vue.use(Element)

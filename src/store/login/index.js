@@ -2,13 +2,10 @@ import { Login } from '@/api/login/login'
 const login = {
     state: {
         token: localStorage.getItem('token') || '',
-        userInfo: null,
+        userInfo: JSON.parse(localStorage.getItem('userInfo')) || null,
         isLogin: localStorage.getItem('token') ? true : false
     },
     mutations: {
-        GETUSER: (state) => {
-            state.username = 'aaa'
-        },
         SETUSER: (state, { token, userInfo }) => {
             state.token = token
             state.userInfo = userInfo
@@ -34,8 +31,14 @@ const login = {
         }
     },
     getters: {
-        avator (state) {
-            return state.avator
+        isLogin: (state) => {
+            return state.isLogin
+        },
+        userInfo: (state) => {
+            return state.userInfo
+        },
+        token: (state) => {
+            return state.token
         }
     }
 }

@@ -1,6 +1,6 @@
   
 <template>
-  <div class="login-container">
+  <div class="login-container animate__animated animate__fadeInUp">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
