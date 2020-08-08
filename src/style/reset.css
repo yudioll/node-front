@@ -1,6 +1,6 @@
 html {
     overflow-x: auto;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 body,

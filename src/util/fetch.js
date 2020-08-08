@@ -12,8 +12,9 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use(res => {
     console.log(res)
+    return Promise.resolve(res.data)
 }, err => {
-    console.log(err)
+    return Promise.reject(err)
 })
 
 export default service

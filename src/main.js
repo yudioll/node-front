@@ -10,7 +10,7 @@ import './icons' // icon
 
 Vue.config.productionTip = false
 Vue.use(Element)
-
+Vue.prototype.$msg = Element.Message
 new Vue({
   router,
   store,

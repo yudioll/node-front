@@ -1,21 +1,35 @@
 import { Login } from '@/api/login/login'
 const login = {
     state: {
-        token: '',
-        username: '',
-        avator: ''
+        token: localStorage.getItem('token') || '',
+        userInfo: null,
+        isLogin: localStorage.getItem('token') ? true : false
     },
-    mutation: {
+    mutations: {
         GETUSER: (state) => {
             state.username = 'aaa'
+        },
+        SETUSER: (state, { token, userInfo }) => {
+            state.token = token
+            state.userInfo = userInfo
+            state.isLogin = true
         }
     },
     actions: {
-        handleLogin(data) {
-            Login(data).then( res=> {
-                console.log(res)
+        handleLogin({ commit }, loginData) {
+            return Login(loginData).then( res => {
+                console.log(res,'111111111111')
+                const { code, err_msg, data } = res
+                if (code !== 200) {
+                    return Promise.reject(err_msg)
+                } else {
+                    localStorage.setItem('token', data.token)
+                    localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
+                    commit('SETUSER', data)
+                    return Promise.resolve()
+                }
             }).catch(err => {
-                console.error(err)
+                return Promise.reject(err)
             })
         }
     },

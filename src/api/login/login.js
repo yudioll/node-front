@@ -2,7 +2,7 @@ import fetch from '@/util/fetch'
 
 export function Login(data) {
     return fetch({
-        url:'/desktop/login',
+        url:'/user/login',
         method:'post',
         data
     })
