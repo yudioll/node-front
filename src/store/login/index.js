@@ -1,9 +1,9 @@
 import { Login } from '@/api/login/login'
 const login = {
     state: {
-        token: localStorage.getItem('token') || '',
-        userInfo: JSON.parse(localStorage.getItem('userInfo')) || null,
-        isLogin: localStorage.getItem('token') ? true : false
+        token:'',
+        userInfo:  null,
+        isLogin: false
     },
     mutations: {
         SETUSER: (state, { token, userInfo }) => {
@@ -15,13 +15,10 @@ const login = {
     actions: {
         handleLogin({ commit }, loginData) {
             return Login(loginData).then( res => {
-                console.log(res,'111111111111')
                 const { code, err_msg, data } = res
                 if (code !== 200) {
                     return Promise.reject(err_msg)
                 } else {
-                    localStorage.setItem('token', data.token)
-                    localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
                     commit('SETUSER', data)
                     return Promise.resolve()
                 }

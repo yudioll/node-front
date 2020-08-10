@@ -47,12 +47,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'Login',
-  computed: {
-      ...mapGetters(['avator'])
-  },
   mounted () {
       console.log(this.avator)
   },

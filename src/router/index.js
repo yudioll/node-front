@@ -3,36 +3,39 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 const routes = [
-    {
-        path: '/',
-        redirect: '/home'
-    },
-    {
-        path: '/login',
-        component: () => import('@/components/login/login')
-    },
-    {
-        path: '/home',
-        component: () => import('@/view/home')
-    }
-]
+  {
+    path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/login",
+    component: () => import("@/components/login/login"),
+  },
+  {
+    path: "/home",
+    component: () => import("@/view/home"),
+  },
+];
 
 const router = new VueRouter({
-    mode: 'history',
-    base:'/yudioll',
-    routes
-})
+  mode: "history",
+  base: "/yudioll",
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
-    if (localStorage.getItem('token')) {
-        next()
+  const token =
+    localStorage.getItem("yudioll") &&
+    JSON.parse(localStorage.getItem("yudioll")).login.token;
+  if (token) {
+    next();
+  } else {
+    if (to.path == "/login") {
+      next();
     } else {
-        if (to.path == '/login') {
-            next()
-        } else {
-            next('/login')
-        }
+      next("/login");
     }
-})
+  }
+});
 
-export default router
+export default router;
