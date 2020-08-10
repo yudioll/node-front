@@ -104,7 +104,7 @@ export default {
       articals: [],
       tags: [
         {
-          name: "前端",
+          name: "前端-view",
           type: "success",
           id: 1,
         },
