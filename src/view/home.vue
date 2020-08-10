@@ -62,7 +62,7 @@
             hide-timestamp
           >
             <el-card>
-              <router-link to="">
+              <router-link :to="'/preview?id=' + art._id">
                 <div class="artical-item">
                   <div class="artical-item-head">
                     <div class="head-l">

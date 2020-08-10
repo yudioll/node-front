@@ -6,12 +6,12 @@ const service = axios.create({
 })
 
 service.interceptors.request.use((config) => {
-    console.log(config)
+    // console.log(config)
     return config
 })
 
 service.interceptors.response.use(res => {
-    console.log(res)
+    // console.log(res)
     return Promise.resolve(res.data)
 }, err => {
     return Promise.reject(err)

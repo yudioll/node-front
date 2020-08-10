@@ -15,6 +15,10 @@ const routes = [
     path: "/home",
     component: () => import("@/view/home"),
   },
+  {
+    path: "/preview",
+    component: () => import("@/view/preview"),
+  },
 ];
 
 const router = new VueRouter({
