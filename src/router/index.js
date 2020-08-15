@@ -19,6 +19,10 @@ const routes = [
     path: "/preview",
     component: () => import("@/view/preview"),
   },
+  {
+    path: "/writeArtical",
+    component: () => import("@/view/writeArtical"),
+  },
 ];
 
 const router = new VueRouter({

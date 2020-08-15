@@ -50,6 +50,9 @@
           }}</el-tag>
         </div>
       </div>
+      <div v-if="isLogin" class="login-write">
+        <router-link to="/writeArtical">写文章</router-link>
+      </div>
     </div>
     <div class="home-main animate__animated animate__backInRight">
       <div class="block">
@@ -97,7 +100,7 @@ import { articalSearch } from "@/api/artical";
 export default {
   name: "home",
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(["userInfo","isLogin"]),
   },
   data() {
     return {
@@ -176,6 +179,16 @@ a {
     border: 20px;
     border-radius: 20px;
     margin-right: 20px;
+    .login-write {
+      text-align: center;
+      margin-top: 20px;
+      a {
+        color: white;
+        background: #44bbaa;
+        padding: 10px 15px;
+        border-radius: 10px;
+      }
+    }
     .home-aside-top {
       padding: 20px 0;
       display: flex;
