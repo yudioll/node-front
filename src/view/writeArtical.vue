@@ -52,7 +52,7 @@
             <el-col :span="11">
               <el-form-item prop="date">
                 <el-date-picker
-                  type="date"
+                  type="datetime"
                   placeholder="选择日期"
                   v-model="ruleForm.date"
                   style="width: 100%;"

@@ -45,17 +45,26 @@
       <div class="home-aside-tags">
         <h2>文章标签</h2>
         <div class="home-aside-tagClas">
-          <el-tag v-for="item in tags" :key="item.id" :type="item.type">{{
-            item.name
-          }}</el-tag>
+          <el-tag
+            v-for="item in tags"
+            @click="handleTypeSearch(item)"
+            :key="item.id"
+            :type="item.type"
+            >{{ item.name }}</el-tag
+          >
         </div>
       </div>
       <div v-if="isLogin" class="login-write">
         <router-link to="/writeArtical">写文章</router-link>
       </div>
     </div>
-    <div class="home-main animate__animated animate__backInRight">
-      <div class="block">
+    <div
+      class="home-main animate__animated animate__backInRight"
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="拼命加载中"
+    >
+      <div class="block" v-if="articals && articals.length > 0">
         <el-timeline>
           <el-timeline-item
             v-for="art in articals"
@@ -83,13 +92,21 @@
                     </div>
                   </div>
                   <div class="artical-item-main">
-                      <img :src="art.preview" alt="">
+                    <img :src="art.preview" alt="" />
                   </div>
                 </div>
               </router-link>
             </el-card>
           </el-timeline-item>
         </el-timeline>
+      </div>
+      <div class="block-center" v-else>
+        <div class="block-center-noData">
+          <img src="@/assets/noData.png" alt="" />
+          <span style="color:#ff6e07"
+            >正在冥想中。。。（可能一会过几天才能想出来）</span
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -100,14 +117,16 @@ import { articalSearch } from "@/api/artical";
 export default {
   name: "home",
   computed: {
-    ...mapGetters(["userInfo","isLogin"]),
+    ...mapGetters(["userInfo", "isLogin"]),
   },
   data() {
     return {
+      // 列表loading
+      loading: true,
       articals: [],
       tags: [
         {
-          name: "前端-view",
+          name: "前端",
           type: "success",
           id: 1,
         },
@@ -131,6 +150,11 @@ export default {
           type: "info",
           id: 5,
         },
+        {
+          name: "全部",
+          type: "info",
+          id: "",
+        },
       ],
     };
   },
@@ -140,15 +164,41 @@ export default {
   methods: {
     //   获取所有文章
     getArtical() {
+      this.loading = true;
       articalSearch()
         .then((res) => {
           if (res.code === 200) {
-            this.articals = res.data;
+            setTimeout(() => {
+              this.loading = false;
+              this.articals = res.data;
+            }, 2000);
           }
         })
         .catch((err) => {
+          this.loading = false;
           console.log(err);
         });
+    },
+    // 点击左侧type 查找文章
+    handleTypeSearch(item) {
+      this.loading = true;
+      if (item.id === "") {
+        this.getArtical();
+      } else {
+        articalSearch({ type: item.id })
+          .then((res) => {
+            if (res.code === 200) {
+              setTimeout(() => {
+                this.loading = false;
+                this.articals = res.data;
+              }, 2000);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            this.loading = false;
+          });
+      }
     },
   },
 };
@@ -239,6 +289,23 @@ a {
     border-radius: 20px;
     height: 800px;
     overflow: auto;
+    .block-center {
+      width: 95%;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .block-center-noData {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        img {
+          width: 200px;
+          height: 200px;
+          margin-bottom: 20px;
+        }
+      }
+    }
     .block {
       width: 95%;
       padding: 20px;
@@ -247,51 +314,53 @@ a {
         align-items: center;
         justify-content: space-between;
         .head-l {
-            font-size: 26px;
-            width: 70%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+          font-size: 26px;
+          width: 70%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .head-r {
+          display: flex;
+          align-items: center;
+          div {
             display: flex;
             align-items: center;
-            div {
-                display: flex;
-                align-items: center;
-                margin: 0 20px;
-                span {
-                    color: #ccc;
-                    margin-left: 10px;
-                }
-                .hot {
-                    width: 20px;
-                    height: 20px;
-                    background: url('../assets/hot.png') no-repeat center center;
-                    background-size: 100% 100%;
-                }
-                .fav {
-                    width: 20px;
-                    height: 20px;
-                    background: url('../assets/fav.png') no-repeat center center;
-                    background-size: 100% 100%;
-                }
+            margin: 0 20px;
+            span {
+              color: #ccc;
+              margin-left: 10px;
             }
+            .hot {
+              width: 20px;
+              height: 20px;
+              background: url("../assets/hot.png") no-repeat center center;
+              background-size: 100% 100%;
+            }
+            .fav {
+              width: 20px;
+              height: 20px;
+              background: url("../assets/fav.png") no-repeat center center;
+              background-size: 100% 100%;
+            }
+          }
         }
       }
       .artical-item-main {
-          margin-top: 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          img {
-              width: 100%;
-              height: 200px;
-              border-radius: 20px;
-          }
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          width: 100%;
+          height: 200px;
+          border-radius: 20px;
+        }
       }
     }
   }
 }
-::-webkit-scrollbar {display:none}
+::-webkit-scrollbar {
+  display: none;
+}
 </style>
