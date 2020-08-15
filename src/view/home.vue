@@ -301,7 +301,7 @@ a {
         flex-direction: column;
         img {
           width: 200px;
-          height: 290px;
+          height: 200px;
           margin-bottom: 20px;
         }
       }
@@ -353,7 +353,7 @@ a {
         justify-content: center;
         img {
           width: 100%;
-          height: 200px;
+          height: 290px;
           border-radius: 20px;
         }
       }
