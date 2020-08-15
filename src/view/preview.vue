@@ -7,7 +7,7 @@
           <span style="margin-left:10px">yudioll</span>
         </div>
         <span style="font-size:28px;">{{ articalInfo.title }}</span>
-        <span style="margin-right:20px">{{time}}</span>
+        <span style="margin-right:20px">{{ time }}</span>
       </div>
       <div
         class="view-content animate__animated animate__lightSpeedInLeft"
